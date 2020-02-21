@@ -149,7 +149,7 @@ fi
 if [ $# -eq 2 ]; 
         then length=$2
         else length=29
-        fi` jika
+        fi` 
 ``` 
 
 - `if [[ $1 =~ ^[a-zA-Z]+$ ]]` kondisi untuk nama file yang diinputkan hanya bisa berupa huruf
@@ -159,7 +159,7 @@ digits=({0..9})
 lower=({a..z})
 upper=({A..Z})
 ```
-- 
+- ` echo $password >> /home/opi/$1.txt` menyimpan password dengan nama yang sesuai dengan yang ditulis diargumen
 
 b) Kemudian supaya file .txt tersebut tidak mudah diketahui maka nama filenya akan di enkripsi dengan menggunakan konversi huruf (string manipulation) yang disesuaikan dengan jam(0-23) dibuatnya file tersebut dengan program terpisah dengan (misal: password.txt dibuat pada jam 01.28 maka namanya berubah menjadi qbttxpse.txt dengan perintah ‘bash soal2_enkripsi.sh password.txt’. Karena p adalah huruf ke 16 dan file dibuat pada jam 1 maka 16+1=17 dan huruf ke 17 adalah q dan begitu pula seterusnya. Apabila melebihi z, akan kembali ke a, contoh: huruf w dengan jam 5.28, maka akan menjadi huruf b.)
 ```
