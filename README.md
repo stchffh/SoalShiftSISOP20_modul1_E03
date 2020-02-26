@@ -227,7 +227,7 @@ mv $file.txt $updatefile.txt
 + [soal3c.sh](https://github.com/stchffh/SoalShiftSISOP20_modul1_E03/blob/master/soal3/soal3c.sh)
 
 ### Penjelasan
-3.
+3. 1 tahun telah berlalu sejak pencampakan hati Kusuma. Akankah sang pujaan hati kembali ke naungan Kusuma? Memang tiada maaf bagi Elen. Tapi apa daya hati yang sudah hancur, Kusuma masih terguncang akan sikap Elen. Melihat kesedihan Kusuma, kalian mencoba menghibur Kusuma dengan mengirimkan gambar kucing.
 
 a) Membuat script untuk mendownload 28 gambar dari
 "https://loremflickr.com/320/240/cat" menggunakan command wget dan menyimpan file dengan nama "pdkt_kusuma_NO" (contoh: pdkt_kusuma_1, pdkt_kusuma_2, pdkt_kusuma_3) serta jangan lupa untuk menyimpan log messages wget kedalam sebuah file "wget.log". 
@@ -248,7 +248,8 @@ berjalan setiap 8 jam dimulai dari jam 6.05 setiap hari kecuali hari Sabtu
 ```
 5 6-23/8 * * 1-5 opi/home/opi/soal3a.sh
 ```
-Diberi crontab untuk setiap 8 jam dari jam 6.05 setiap hari kecuali hari Sabtu untuk scheduling download gambar.
+- `5 6-23/8 * * 1-5` untuk menjadwalkan download gambar setiap hari kecuali hari Sabtu dari jam 6.05 setiap 8 jam sekali
+- `opi/home/opi/soal3a.sh` menunjukkan lokasi file
 
 c) Buatlah sebuah script untuk mengidentifikasi gambar yang identik dari keseluruhan gambar yang terdownload tadi. Bila terindikasi sebagai gambar yang identik, maka sisakan 1 gambar dan pindahkan sisa file identik tersebut ke dalam folder ./duplicate dengan format filename "duplicate_nomor" (contoh : duplicate_200, duplicate_201). Setelah itu lakukan pemindahan semua gambar yang tersisa kedalam folder ./kenangan dengan format filename "kenangan_nomor" (contoh: kenangan_252, kenangan_253). Setelah tidak ada gambar di current directory, maka lakukan backup seluruh log menjadi
 ekstensi ".log.bak".
@@ -264,3 +265,13 @@ awk '{print i+1"-"$2; i+=1}' location.log | awk -F '-' '{ a[$2]++
 
 cp wget.log wget.log.bak
 ```
+- `grep "Location" wget.log > location.log ` untuk menyimpan baris yang mengandung "Location" pada wget.log di dalam "location.log"
+- `mkdir -p kenangan duplicate ` untuk membuat folder "kenangan" dan "duplicate"
+- untuk memilah foto yang sudah di download. apabila ada gambar yang terdownload lebih dari satu kali, maka dimasukkan kedalam folder "duplicate" dan apabila gambar yang terdownload hanya satu kali, maka dimasukkan kedalam folder "kenangan"
+```
+awk '{print i+1"-"$2; i+=1}' location.log | awk -F '-' '{ a[$2]++
+	if (a[$2] > 1) {command = "mv pdkt_kusuma_" $1 " duplicate/duplicate_" $1} 		
+  else {command = "mv pdkt_kusuma_" $1 " kenangan/kenangan_" $1}
+	system(command)}'
+```
+- `cp wget.log wget.log.bak` untuk membackup file yang telah di download dengan ekstensi ".bak".
